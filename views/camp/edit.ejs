@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>
+      <%=prd.title%>
+   </title>
+</head>
+
+<body>
+   <h1>make update</h1>
+   <form action="/makecamp/<%=prd._id%>?_method=put" method="post">
+      <div>
+      <label for="title">Title</label>
+      <input type="text" name="title" id="title" placeholder="Enter ItemName" value="<%=prd.title%>">
+      </div>
+      <div>
+      <label for="location">location</label>
+      <input name="location" id="location" value="<%=prd.location%>" placeholder="add location">
+      </div>
+      <button>Submit</button>
+   </form>
+   <a href="/makecamp/<%=prd._id%> ">Go Back</a>
+</body>
+
+</html>
