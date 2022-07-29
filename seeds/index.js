@@ -16,10 +16,13 @@ const sample = arr => arr[Math.floor(Math.random() * arr.length)];
 const seedDB = async () => {
    await Camp.deleteMany({});
    for (let i = 0; i < 50; i++) {
-
+      const pric = Math.floor(Math.random() * 100000);
       const c = new Camp({
          location: `${sample(cities).city},${sample(cities).state}`,
-         title: `${sample(descriptors)} ${sample(places)}`
+         title: `${sample(descriptors)} ${sample(places)}`,
+         price: pric,
+         description: "trying to explore the life",
+         image: "https://source.unsplash.com/random"
       });
       await c.save();
       // console.log(sample(descriptors));

@@ -3,6 +3,7 @@ const { rmSync, appendFileSync } = require('fs');
 const mongoose = require('mongoose');
 const Camp = require('./models/camp');// import from models
 const path = require('path');
+const engine = require('ejs-mate');
 const methodOverride = require('method-override');
 mongoose.connect('mongodb://localhost:27017/campApp', { useNewUrlParser: true, useUnifiedTopology: true })
    .then(() => {
@@ -13,9 +14,10 @@ mongoose.connect('mongodb://localhost:27017/campApp', { useNewUrlParser: true, u
       console.log(err);
    });
 const app = express();
+
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
-
+app.engine('ejs', engine);
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.get('/', (req, res) => {
@@ -59,7 +61,7 @@ app.delete('/makecamp/:id', async (req, res) => {
    const { id } = req.params;
    const prd = await Camp.findByIdAndDelete(id);
    // const products = await Product.find({});
-   console.log(prd);
+   // console.log(prd);
    // res.send("skdnldsn");
    res.redirect(`/makecamp`);
    // res.render("products/edit", { prd });
