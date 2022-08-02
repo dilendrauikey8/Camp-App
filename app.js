@@ -32,19 +32,21 @@ app.get('/makecamp', async (req, res) => {
 app.get('/makecamp/new', (req, res) => {
    res.render('camp/new');
 });
-app.post('/makecamp', async (req, res) => {
-   const bd = req.body
-   const c = new Camp(bd);
-   await c.save();
-   res.redirect('/makecamp');
-   // console.log(bd)
-})
+
 app.get('/makecamp/:id', async (req, res) => {
    const { id } = req.params;
    const camp = await Camp.findById(id);
    // console.log(camp);
    res.render('camp/details', { camp });
 });
+app.post('/makecamp', async (req, res) => {
+   const bd = req.body
+   const c = new Camp(bd);
+   await c.save();
+   // console.log(c);
+   res.redirect(`/makecamp/${c._id}`);
+   // console.log(bd)
+})
 app.get('/makecamp/:id/edit', async (req, res) => {
    const { id } = req.params;
    const prd = await Camp.findById(id);

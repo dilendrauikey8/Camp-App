@@ -1,19 +1,33 @@
 <% layout('layouts/boilerplate')%>
    <h1>Show the places and locations</h1>
+   <a href="/makecamp/new">Add locations</a>
    <ul>
       <% for(let c of camp){%>
 
+         <div class="card" mb-3>
+            <div class="row">
+               <div class="col-md-4">
+                  <img src="<%=c.image%>" alt="" class="img-fluid">
+               </div>
+               <div class="col-md-8">
+                  <div class="card-body">
+                     <h5 class="card-title">
+                        <%=c.title%>s
+                     </h5>
+                     <p class="card-text">
+                        <%=c.description%>
+                     </p>
+                     <p class="card-text">
+                        <%=c.location%>
+                     </p>
+                     <a class="btn btn-primary" href="/makecamp/<%=c._id%>"> details of <%= c.title%> </a>
+                  </div>
+               </div>
+            </div>
 
-         <li>
-            <a href="/makecamp/<%=c._id%>">
-               <%= c.title%>
-            </a>
-         </li>
-         <!-- <li>
-            locations:-<%= c.location %>
-         </li> -->
-
-
+         </div>
+         
          <%}%>
    </ul>
-   <a href="/makecamp/new">Add locations</a>
+
+   

@@ -1,19 +1,35 @@
 <% layout('layouts/boilerplate')%>
-   <h1>Details of locations</h1>
-   <ul>
-      <li>id:<%=camp._id%>
-      </li>
-      <li>title: <%=camp.title%>
-      </li>
-      <li>location:<%=camp.location%>
-      </li>
-      <img src="<%= camp.image%>" alt="" width="500px">
-      <p>
-         <%= camp.description%>
-      </p>
-   </ul>
-   <a href="/makecamp">Back to Homepage</a>
-   <a href="/makecamp/<%=camp._id%>/edit">Edit</a>
-   <form action="/makecamp/<%=camp._id%>?_method=delete" method="post">
-      <button>Delete</button>
-   </form>
+
+
+
+   <div class="row">
+      <div class="col-6 offset-3">
+         <div class="card mb-3">
+            <img src="<%= camp.image%>" class="card-img-top" alt="dvnbnjd">
+            <div class="card-body">
+               <h5 class="card-title">
+                  <%=camp.title%>
+               </h5>
+               <p class="card-text">
+                  <%=camp.description%>
+               </p>
+            </div>
+            <ul class="list-group list-group-flush">
+               <li class="list-group-item">
+                  <%=camp.price%>
+               </li>
+               <li class="list-group-item">
+                  <%=camp.location%>
+               </li>
+               <!-- <li class="list-group-item">A third item</li> -->
+            </ul>
+            <div class="card-body">
+               <a href="/makecamp/<%=camp._id%>/edit" class="card-link btn btn-info">Edit</a>
+               <form class="d-inline" action="/makecamp/<%=camp._id%>?_method=delete" method="post">
+                  <button class="card-link btn btn-danger">Delete</button>
+               </form>
+               <!-- <a href="#" class="card-link">Another link</a> -->
+            </div>
+         </div>
+      </div>
+   </div>
