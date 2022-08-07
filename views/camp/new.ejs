@@ -3,35 +3,52 @@
    <div class="row">
       <h1 class="text-center">New Camp</h1>
       <div class="col-6 offset-3">
-         <form action="/makecamp" method="post">
+         <form action="/makecamp" method="post" class="validation-form" novalidate>
             <div class="mb-3">
                <label class="form-label" for="title">Title</label>
                <!-- <br> -->
-               <input class="form-control" type="text" name="title" id="title" placeholder="">
+               <input class="form-control" type="text" name="title" id="title" placeholder="" required>
+               <div class="valid-feedback">
+                  Looks good!
+               </div>
             </div>
             <div class="mb-3">
                <label class="form-label" for="location">Locations</label>
                <!-- <br> -->
-               <input class="form-control" type="text" name="location" id="location" placeholder=""></input>
+               <input class="form-control" type="text" name="location" id="location" placeholder="" required></input>
+               <div class="valid-feedback">
+                  Looks good!
+               </div>
                <!-- <input type="text" name="location" id="location" placeholder="add location"> -->
             </div>
             <div clas="mb-3">
                <label class="form-label" for="price">Price</label>
-            <div class="input-group mb-3">
-               <span class="input-group-text" id="price-label">$</span>
-               <input type="text" class="form-control" id="price" name = "price" placeholder="0.00" aria-label="price-label" aria-describedby="price-label">
-             </div>
+               <div class="input-group mb-3">
+                  <span class="input-group-text" id="price-label">$</span>
+                  <input type="text" class="form-control" id="price" name="price" placeholder="0.00"
+                     aria-label="price-label" aria-describedby="price-label" required>
+                  <div class="valid-feedback">
+                     Looks good!
+                  </div>
+               </div>
             </div>
             <div class="mb-3">
                <label class="form-label" for="image">Image Url</label>
                <!-- <br> -->
-               <input class="form-control" type="text" name="image" id="image" placeholder=""></input>
+               <input class="form-control" type="text" name="image" id="image" placeholder="" required></input>
+               <div class="valid-feedback">
+                  Looks good!
+               </div>
                <!-- <input type="text" name="location" id="location" placeholder="add location"> -->
             </div>
             <div class="mb-3">
                <label class="form-label" for="description">Description</label>
                <!-- <br> -->
-               <textarea class="form-control" type="text" name="description" id="description" placeholder=""></textarea>
+               <textarea class="form-control" type="text" name="description" id="description" placeholder=""
+                  required></textarea>
+               <div class="valid-feedback">
+                  Looks good!
+               </div>
                <!-- <input type="text" name="location" id="location" placeholder="add location"> -->
             </div>
             <button class="btn btn-success">Add Camp</button>
@@ -39,4 +56,25 @@
          <!-- <a href="/makecamp">Back to Homepage</a> -->
       </div>
    </div>
+   <script>
+      // Example starter JavaScript for disabling form submissions if there are invalid fields
+      (function () {
+         'use strict'
 
+         // Fetch all the forms we want to apply custom Bootstrap validation styles to
+         const forms = document.querySelectorAll('.validation-form')
+
+         // Loop over them and prevent submission
+         Array.from(forms)
+            .forEach(function (form) {
+               form.addEventListener('submit', function (event) {
+                  if (!form.checkValidity()) {
+                     event.preventDefault()
+                     event.stopPropagation()
+                  }
+
+                  form.classList.add('was-validated')
+               }, false)
+            })
+      })()
+   </script>
