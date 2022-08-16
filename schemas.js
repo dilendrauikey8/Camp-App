@@ -13,3 +13,8 @@ module.exports.CampSchema = Joi.object({
    location: Joi.string().required(),
    description: Joi.string().required()
 });
+
+module.exports.ReviewSchema = Joi.object({
+   rating: Joi.number().min(1).max(10).required(),
+   review:Joi.string().required()
+});

@@ -4,10 +4,11 @@ const mongoose = require('mongoose');
 const Camp = require('./models/camp');// import from models
 const path = require('path');
 const engine = require('ejs-mate');
-const { CampSchema } = require('./schemas.js');
+const { CampSchema, ReviewSchema } = require('./schemas.js');
 const catchAsync = require('./utils/catchAsync');
 const ExpressError = require('./utils/ExpressError');
 const methodOverride = require('method-override');
+const Review = require('./models/review');
 mongoose.connect('mongodb://localhost:27017/campApp', { useNewUrlParser: true, useUnifiedTopology: true })
    .then(() => {
       console.log("connection open!!!");
@@ -36,6 +37,15 @@ const validateCamp = (req, res, next) => {
    }
 
 }
+const validateReview = (req, res, next) => {
+   const { error } = ReviewSchema.validate(req.body);
+   if (error) {
+      const msg = error.details.map(el => el.message).join(',')
+      throw new ExpressError(msg, 400)
+   } else {
+      next();
+   }
+}
 app.get('/', (req, res) => {
    res.render('home');
 });
@@ -43,6 +53,7 @@ app.get('/makecamp', catchAsync(async (req, res) => {
    const camp = await Camp.find({});
    // console.log(camp);
    res.render('camp/show', { camp });
+
 
 }));
 app.get('/makecamp/new', (req, res) => {
@@ -61,7 +72,7 @@ app.post('/makecamp', validateCamp, catchAsync(async (req, res, next) => {
 app.get('/makecamp/:id', catchAsync(async (req, res) => {
 
    const { id } = req.params;
-   const camp = await Camp.findById(id);
+   const camp = await Camp.findById(id).populate('review');
    // console.log(camp);
    res.render('camp/details', { camp });
 
@@ -87,6 +98,29 @@ app.delete('/makecamp/:id', catchAsync(async (req, res) => {
    // res.send("skdnldsn");
    res.redirect(`/makecamp`);
    // res.render("products/edit", { prd });
+}));
+app.post('/makecamp/:id/review', validateReview, catchAsync(async (req, res) => {
+
+   const { id } = req.params;
+   const camp = await Camp.findById(id);
+   const review1 = req.body;
+   const newReview = new Review(review1);
+   camp.review.push(newReview);
+   await newReview.save();
+   await camp.save();
+   res.redirect(`/makecamp/${id}`);
+
+
+}));
+app.delete('/makecamp/:id/review/:reviewId', catchAsync(async (req, res) => {
+
+   const { id, reviewId } = req.params;
+   await Camp.findByIdAndUpdate(id, { $pull: { review: reviewId } });
+   await Review.findByIdAndDelete(reviewId);
+   console.log(Camp);
+   res.redirect(`/makecamp/${id}`);
+
+
 }));
 app.all('*', (req, res, next) => {
    // res.send("404!!");
