@@ -17,17 +17,24 @@
    <div class="row">
       <h1 class="text-center">Edit Camp</h1>
       <div class="col-6 offset-3">
-         <form action="/makecamp/<%=prd._id%>?_method=put" method="post">
+         <form action="/makecamp/<%=prd._id%>?_method=put" method="post" novalidate class="validation-form">
             <div class="mb-3">
                <label class="form-label" for="title">Title</label>
                <!-- <br> -->
-               <input class="form-control" type="text" name="title" id="title" placeholder="" value="<%=prd.title%>">
+               <input class="form-control" type="text" name="title" id="title" placeholder="" value="<%=prd.title%>"
+                  required>
+               <div class="valid-feedback">
+                  Looks good!
+               </div>
             </div>
             <div class="mb-3">
                <label class="form-label" for="location">Locations</label>
                <!-- <br> -->
                <input class="form-control" type="text" name="location" id="location" placeholder=""
-                  value="<%=prd.location%>"></input>
+                  value="<%=prd.location%>" required></input>
+               <div class="valid-feedback">
+                  Looks good!
+               </div>
                <!-- <input type="text" name="location" id="location" placeholder="add location"> -->
             </div>
             <div clas="mb-3">
@@ -35,21 +42,32 @@
                <div class="input-group mb-3">
                   <span class="input-group-text" id="price-label">$</span>
                   <input type="text" class="form-control" id="price" name="price" value="<%=prd.price%>"
-                     placeholder="0.00" aria-label="price-label" aria-describedby="price-label">
+                     placeholder="0.00" aria-label="price-label" aria-describedby="price-label" required>
+                  <div class="valid-feedback">
+                     Looks good!
+                  </div>
                </div>
             </div>
             <div class="mb-3">
                <label class="form-label" for="image">Image Url</label>
                <!-- <br> -->
-               <input class="form-control" type="text" name="image" value="<%=prd.image%>" id="image"
-                  placeholder=""></input>
+               <input class="form-control" type="text" name="image" value="<%=prd.image%>" id="image" placeholder=""
+                  required></input>
+
+               <div class="valid-feedback">
+                  Looks good!
+               </div>
                <!-- <input type="text" name="location" id="location" placeholder="add location"> -->
             </div>
             <div class="mb-3">
                <label class="form-label" for="description">Description</label>
                <!-- <br> -->
-               <textarea class="form-control" type="text" name="description" 
-                  id="description" placeholder=""><%=prd.description%></textarea>
+               <textarea class="form-control" type="text" name="description" id="description" placeholder=""
+                  required><%=prd.description%></textarea>
+
+               <div class="valid-feedback">
+                  Looks good!
+               </div>
                <!-- <input type="text" name="location" id="location" placeholder="add location"> -->
             </div>
             <button class="btn btn-info">Edit</button>
