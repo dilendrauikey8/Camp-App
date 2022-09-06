@@ -1,15 +1,26 @@
 <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Navbar</a>
+      <a class="navbar-brand" href="#">Camp-App</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
          aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
          <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
          <div class="navbar-nav">
-            <a class="nav-link" href="/">Camp-App</a>
-            <a class="nav-link" href="/makecamp">Home</a>
+            <a class="nav-link" href="/">Home</a>
+            <a class="nav-link" href="/makecamp">Camps</a>
             <a class="nav-link" href="/makecamp/new">New</a>
+         </div>
+         <div class="navbar-nav ms-auto">
+            <% if(!currentUser){%>
+               <a class="nav-link" href="/login">login</a>
+               <a class="nav-link" href="/register">register</a>
+               <% } else {%>
+                  <a class="nav-link" href="#">
+                     <%= currentUser.username %>
+                  </a>
+                  <a class="nav-link" href="/logout">logout</a>
+                  <%}%>
          </div>
       </div>
    </div>

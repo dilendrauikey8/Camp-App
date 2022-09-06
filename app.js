@@ -9,10 +9,17 @@ const catchAsync = require('./utils/catchAsync');
 const ExpressError = require('./utils/ExpressError');
 const methodOverride = require('method-override');
 const Review = require('./models/review');
-const makecamp = require('./routes/makecamp');
-const reviews = require('./routes/review');
+
+
+const makecampRoutes = require('./routes/makecamp');
+const reviewsRoutes = require('./routes/review');
+const userRoutes = require('./routes/users');
+
 const session = require('express-session');
 const flash = require('connect-flash');
+const passport = require('passport');
+const passportLocal = require('passport-local');
+const User = require('./models/user');
 mongoose.connect('mongodb://localhost:27017/campApp', { useNewUrlParser: true, useUnifiedTopology: true })
    .then(() => {
       console.log("connection open!!!");
@@ -29,7 +36,7 @@ app.engine('ejs', engine);
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(flash());
+
 const sessionConfig = {
    secret: 'thisshouldbeabettersecret!',
    resave: false,
@@ -41,7 +48,17 @@ const sessionConfig = {
    }
 }
 app.use(session(sessionConfig));
+app.use(flash());
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new passportLocal(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 app.use((req, res, next) => {
+   res.locals.currentUser = req.user;
+   // console.log(req.user);
    res.locals.success = req.flash('success');
    res.locals.error = req.flash('error');
    next();
@@ -50,8 +67,9 @@ app.get('/', (req, res) => {
    res.render('home');
 });
 
-app.use('/makecamp', makecamp);
-app.use('/makecamp/:id/review', reviews);
+app.use('', userRoutes);
+app.use('/makecamp', makecampRoutes);
+app.use('/makecamp/:id/review', reviewsRoutes);
 
 app.all('*', (req, res, next) => {
    // res.send("404!!");

@@ -5,23 +5,15 @@ const Review = require('../models/review');
 const { CampSchema, ReviewSchema } = require('../schemas.js');
 const catchAsync = require('../utils/catchAsync');
 const ExpressError = require('../utils/ExpressError');
+const { validateReview, isLoggedIn, isReviewAuthor } = require('../middleware');
 
-const validateReview = (req, res, next) => {
-   const { error } = ReviewSchema.validate(req.body);
-   if (error) {
-      const msg = error.details.map(el => el.message).join(',')
-      throw new ExpressError(msg, 400)
-   } else {
-      next();
-   }
-}
-
-router.post('/', validateReview, catchAsync(async (req, res) => {
+router.post('/', isLoggedIn, validateReview, catchAsync(async (req, res) => {
 
    const { id } = req.params;
    const camp = await Camp.findById(id);
    const review1 = req.body;
    const newReview = new Review(review1);
+   newReview.author = req.user._id;
    camp.review.push(newReview);
    await newReview.save();
    await camp.save();
@@ -30,7 +22,7 @@ router.post('/', validateReview, catchAsync(async (req, res) => {
 
 
 }));
-router.delete('/:reviewId', catchAsync(async (req, res) => {
+router.delete('/:reviewId', isLoggedIn, isReviewAuthor, catchAsync(async (req, res) => {
 
    const { id, reviewId } = req.params;
    await Camp.findByIdAndUpdate(id, { $pull: { review: reviewId } });

@@ -11,6 +11,7 @@ mongoose.connect('mongodb://localhost:27017/campApp', { useNewUrlParser: true, u
       console.log(err);
    });
 
+
 const sample = arr => arr[Math.floor(Math.random() * arr.length)];
 
 const seedDB = async () => {
@@ -18,6 +19,7 @@ const seedDB = async () => {
    for (let i = 0; i < 50; i++) {
       const pric = Math.floor(Math.random() * 100000);
       const c = new Camp({
+         author:"6315c7a8519267f054280b03",
          location: `${sample(cities).city},${sample(cities).state}`,
          title: `${sample(descriptors)} ${sample(places)}`,
          price: pric,
@@ -26,7 +28,7 @@ const seedDB = async () => {
       });
       await c.save();
       // console.log(sample(descriptors));
-      console.log(c);
+      // console.log(c);
    }
 
 };
