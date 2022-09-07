@@ -1,3 +1,8 @@
+if (process.env.NODE_ENV !== "production") {
+   require('dotenv').config();
+}
+
+
 const express = require('express');
 const { rmSync, appendFileSync } = require('fs');
 const mongoose = require('mongoose');

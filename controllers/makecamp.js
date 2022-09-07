@@ -11,11 +11,13 @@ module.exports.campNewGet = (req, res) => {
 }
 module.exports.campNewPost = async (req, res, next) => {
 
+
    const bd = req.body
    const c = new Camp(bd);
+   c.images = req.files.map(f => ({ url: f.path, filename: f.filename }));
    c.author = req.user._id;
    await c.save();
-
+   
    req.flash('success', "Camp is Succesfully created");
    res.redirect(`/makecamp/${c._id}`);
 }
@@ -51,6 +53,8 @@ module.exports.campEditGet = async (req, res) => {
 module.exports.campEditPost = async (req, res) => {
    const { id } = req.params;
    const prd = await Camp.findByIdAndUpdate(id, req.body, { runValidators: true, new: true });
+   const img  = req.files.map(f => ({url:f.path,filename:f.filename}));
+   prd.push(...img);// pushing array
    // console.log(prd);
 
    req.flash('success', 'Camp Succcesfully updated');

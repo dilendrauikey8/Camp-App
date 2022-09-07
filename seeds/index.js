@@ -19,12 +19,21 @@ const seedDB = async () => {
    for (let i = 0; i < 50; i++) {
       const pric = Math.floor(Math.random() * 100000);
       const c = new Camp({
-         author:"6315c7a8519267f054280b03",
+         author: "6315c7a8519267f054280b03",
          location: `${sample(cities).city},${sample(cities).state}`,
          title: `${sample(descriptors)} ${sample(places)}`,
          price: pric,
          description: "trying to explore the life",
-         image: "https://source.unsplash.com/random"
+         images: [{
+            url: 'https://res.cloudinary.com/dbpdgxlax/image/upload/v1662557038/CampApp/vob72apgclkjdd1iadaw.png',
+            filename: 'CampApp/vob72apgclkjdd1iadaw',
+
+         },
+         {
+            url: 'https://res.cloudinary.com/dbpdgxlax/image/upload/v1662557050/CampApp/lo8v8eunvhgjd7qjaqu3.png',
+            filename: 'CampApp/lo8v8eunvhgjd7qjaqu3',
+
+         }]
       });
       await c.save();
       // console.log(sample(descriptors));

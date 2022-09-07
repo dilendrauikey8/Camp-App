@@ -3,7 +3,7 @@
    <div class="row">
       <h1 class="text-center">New Camp</h1>
       <div class="col-6 offset-3">
-         <form action="/makecamp" method="post" class="validation-form" novalidate>
+         <form action="/makecamp" method="post" class="validation-form" enctype =  "multipart/form-data" novalidate>
             <div class="mb-3">
                <label class="form-label" for="title">Title</label>
                <!-- <br> -->
@@ -33,9 +33,10 @@
                </div>
             </div>
             <div class="mb-3">
-               <label class="form-label" for="image">Image Url</label>
+               <!-- <label class="form-label" for="image">Image Url</label> -->
                <!-- <br> -->
-               <input class="form-control" type="text" name="image" id="image" placeholder="" required></input>
+               <!-- <input class="form-control" type="text" name="image" id="image" placeholder="" required></input> -->
+               <input type="file" name="image" id="image" multiple>
                <div class="valid-feedback">
                   Looks good!
                </div>
