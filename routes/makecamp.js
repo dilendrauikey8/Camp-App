@@ -13,7 +13,7 @@ const upload = multer({ storage });
 
 router.get('/', catchAsync(makecamp.campShow));
 router.get('/new', isLoggedIn, makecamp.campNewGet);// to get for creat new form
-router.post('/', isLoggedIn, upload.array('image'),validateCamp, catchAsync(makecamp.campNewPost));// post 
+router.post('/', isLoggedIn, upload.array('image'), validateCamp, catchAsync(makecamp.campNewPost));// post 
 // router.post('/', upload.array('image'), (req, res) => {
 
 //    console.log(req.body, req.files);
@@ -22,7 +22,7 @@ router.post('/', isLoggedIn, upload.array('image'),validateCamp, catchAsync(make
 router.get('/:id', catchAsync(makecamp.campDetails));
 
 router.get('/:id/edit', isLoggedIn, isAuthor, catchAsync(makecamp.campEditGet));
-router.put('/:id', isLoggedIn, isAuthor, validateCamp, catchAsync(makecamp.campEditPost))
+router.put('/:id', isLoggedIn, isAuthor, upload.array('image'), validateCamp, catchAsync(makecamp.campEditPost))
 router.delete('/:id', isLoggedIn, isAuthor, catchAsync(makecamp.campDelete));
 
 module.exports = router;

@@ -41,7 +41,7 @@
                   added by - <%=camp.author.username%>
                </li>
                <li class="list-group-item">
-                  $<%=camp.price%>
+                  &#8377;<%=camp.price%>/Day
                </li>
                <li class="list-group-item">
                   <%=camp.location%>
@@ -62,7 +62,7 @@
       </div>
       <%if(currentUser){%>
          <div class="col-6">
-
+            <div id='map' style='width: 100%; height: 300px;'></div>
             <form action="/makecamp/<%=camp.id%>/review" method="POST" class="mb-3 validation-form" novalidate>
                <div class="mb-3">
                   <!-- <label class="form-label" for="rating">Rating</label>
@@ -121,3 +121,22 @@
          </div>
          <%}%>
    </div>
+
+   <!-- <script>
+      mapboxgl.accessToken = '<%-process.env.MAPBOX_TOKEN%>';
+      const map = new mapboxgl.Map({
+         container: 'map', // container ID
+         // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
+         style: 'mapbox://styles/mapbox/streets-v11', // style URL
+         center: [-74.5, 40], // starting position [lng, lat]
+         zoom: 9, // starting zoom
+         projection: 'globe' // display the map as a 3D globe
+      });
+   </script> -->
+   <script>
+      const mapToken = '<%-process.env.MAPBOX_TOKEN%>';
+      const camp = <%- JSON.stringify(camp) %>;
+   </script>
+   <script src="/javascript/maps.js">
+
+   </script>

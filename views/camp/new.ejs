@@ -24,7 +24,7 @@
             <div clas="mb-3">
                <label class="form-label" for="price">Price</label>
                <div class="input-group mb-3">
-                  <span class="input-group-text" id="price-label">$</span>
+                  <span class="input-group-text" id="price-label">&#8377;</span>
                   <input type="text" class="form-control" id="price" name="price" placeholder="0.00"
                      aria-label="price-label" aria-describedby="price-label" required>
                   <div class="valid-feedback">
@@ -32,16 +32,7 @@
                   </div>
                </div>
             </div>
-            <div class="mb-3">
-               <!-- <label class="form-label" for="image">Image Url</label> -->
-               <!-- <br> -->
-               <!-- <input class="form-control" type="text" name="image" id="image" placeholder="" required></input> -->
-               <input type="file" name="image" id="image" multiple>
-               <div class="valid-feedback">
-                  Looks good!
-               </div>
-               <!-- <input type="text" name="location" id="location" placeholder="add location"> -->
-            </div>
+           
             <div class="mb-3">
                <label class="form-label" for="description">Description</label>
                <!-- <br> -->
@@ -51,6 +42,17 @@
                   Looks good!
                </div>
                <!-- <input type="text" name="location" id="location" placeholder="add location"> -->
+            </div>
+            <div class="mb-3">
+               
+               <div class="form-file custom-file">
+                  <input type="file" class="form-file-input" id="image" name="image" multiple>
+                  <label class="form-file-label" for="image">
+                      <span class="form-file-text custom-file-label">Choose image(s)...</span>
+                      <span class="form-file-button">Browse</span>
+                  </label>
+              </div>
+
             </div>
             <button class="btn btn-success">Add Camp</button>
          </form>

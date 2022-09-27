@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Camp = require('../models/camp');
+
 const cities = require('./cities');
 const { places, descriptors } = require('./helper');
 mongoose.connect('mongodb://localhost:27017/campApp', { useNewUrlParser: true, useUnifiedTopology: true })
@@ -16,24 +17,35 @@ const sample = arr => arr[Math.floor(Math.random() * arr.length)];
 
 const seedDB = async () => {
    await Camp.deleteMany({});
-   for (let i = 0; i < 50; i++) {
+   for (let i = 0; i < 5; i++) {
       const pric = Math.floor(Math.random() * 100000);
+      const id = sample(cities);
       const c = new Camp({
          author: "6315c7a8519267f054280b03",
-         location: `${sample(cities).city},${sample(cities).state}`,
+         location: `${id.city},${id.state}`,
          title: `${sample(descriptors)} ${sample(places)}`,
          price: pric,
-         description: "trying to explore the life",
-         images: [{
-            url: 'https://res.cloudinary.com/dbpdgxlax/image/upload/v1662557038/CampApp/vob72apgclkjdd1iadaw.png',
-            filename: 'CampApp/vob72apgclkjdd1iadaw',
+         geometry: {
+            type: 'Point', coordinates: [
 
+               id.longitude,
+               id.latitude
+
+            ]
          },
-         {
-            url: 'https://res.cloudinary.com/dbpdgxlax/image/upload/v1662557050/CampApp/lo8v8eunvhgjd7qjaqu3.png',
-            filename: 'CampApp/lo8v8eunvhgjd7qjaqu3',
+         description: "trying to explore the life",
+         images: [
+            {
+               url: 'https://res.cloudinary.com/dbpdgxlax/image/upload/v1663157981/CampApp/wl0lfazo75tqqbawgrrk.png',
+               filename: 'CampApp/wl0lfazo75tqqbawgrrk',
+            },
+            {
+               url: 'https://res.cloudinary.com/dbpdgxlax/image/upload/v1663157981/CampApp/wl0lfazo75tqqbawgrrk.png',
+               filename: 'CampApp/wl0lfazo75tqqbawgrrk',
 
-         }]
+            }
+
+         ]
       });
       await c.save();
       // console.log(sample(descriptors));

@@ -11,7 +11,8 @@ module.exports.CampSchema = Joi.object({
    price: Joi.number().required().min(1),
    // image: Joi.string().required(),
    location: Joi.string().required(),
-   description: Joi.string().required()
+   description: Joi.string().required(),
+   deleteImages:Joi.array()
 });
 
 module.exports.ReviewSchema = Joi.object({

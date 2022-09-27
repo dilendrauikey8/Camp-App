@@ -1,31 +1,47 @@
 <% layout('layouts/boilerplate')%>
-   <h1>Show the places and locations</h1>
-   <a href="/makecamp/new">Add locations</a>
-   <ul>
-      <% for(let c of camp){%>
 
-         <div class="card" mb-3>
-            <div class="row">
-               <div class="col-md-4">
-                  <img src="<%=c.images[1].url%>" alt="" class="img-fluid">
-               </div>
-               <div class="col-md-8">
-                  <div class="card-body">
-                     <h5 class="card-title">
-                        <%=c.title%>s
-                     </h5>
-                     <p class="card-text">
-                        <%=c.description%>
-                     </p>
-                     <p class="card-text">
-                        <%=c.location%>
-                     </p>
-                     <a class="btn btn-primary" href="/makecamp/<%=c._id%>"> View </a>
+   <div id="map" style="width: 100%; height: 500px"></div>
+   <div class="container">
+      <h1>Show the places and locations</h1>
+      <!-- <a href="/makecamp/new">Add locations</a> -->
+      <ul>
+         <% for(let c of camp){%>
+
+            <div class="card mb-3" >
+               <div class="row">
+                  <div class="col-md-4">
+                     <%if(c.images.length){%>
+                        <img src="<%=c.images[0].url%>" alt="" class="img-fluid">
+                        <%}else{%>
+                           <img
+                              src="https://res.cloudinary.com/dbpdgxlax/image/upload/v1663157981/CampApp/wl0lfazo75tqqbawgrrk.png"
+                              alt="" class="img-fluid">
+                           <%}%>
+                  </div>
+                  <div class="col-md-8">
+                     <div class="card-body">
+                        <h5 class="card-title">
+                           <%=c.title%>s
+                        </h5>
+                        <p class="card-text">
+                           <%=c.description%>
+                        </p>
+                        <p class="card-text">
+                           <%=c.location%>
+                        </p>
+                        <a class="btn btn-primary" href="/makecamp/<%=c._id%>"> View </a>
+                     </div>
                   </div>
                </div>
+
             </div>
 
-         </div>
+            <%}%>
+      </ul>
+      <div>
 
-         <%}%>
-   </ul>
+         <script>
+            const mapToken = '<%-process.env.MAPBOX_TOKEN%>';
+            const campgrounds = { features: <%- JSON.stringify(camp) %> }
+         </script>
+         <script src="/javascript/clusterMap.js"></script>
